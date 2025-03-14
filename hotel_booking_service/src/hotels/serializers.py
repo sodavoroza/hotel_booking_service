@@ -8,7 +8,7 @@ class RoomSerializer(serializers.ModelSerializer):
 
 class HotelSerializer(serializers.ModelSerializer):
     rooms = RoomSerializer(many=True, read_only=True)
-    
+
     class Meta:
         model = Hotel
         fields = "__all__"

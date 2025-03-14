@@ -23,6 +23,7 @@ manage = "src.manage:main"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.1.0"
+pytest-django = "^4.10.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

@@ -16,17 +16,15 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import path, include
-
-def home_view(request):
-    return HttpResponse("<h1>Welcome to the Hotel Booking API!</h1>")
+from django.http import HttpResponseRedirect
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/hotels/", include("hotels.urls")),
-    path("api/bookings/", include("bookings.urls")),
+    path("api/bookings/", include("bookings.urls")),  # Если настроено аналогично для бронирований
     path("", lambda request: HttpResponseRedirect("/api/hotels/")),
 ]
+
 
 
