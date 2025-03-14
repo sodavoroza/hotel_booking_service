@@ -1,0 +1,6 @@
+{
+  "python.pythonPath": "/home/sodavoroza/.cache/pypoetry/virtualenvs/hotel-booking-service-W5mZP3Ww-py3.12/bin/python",
+  "python.analysis.extraPaths": [
+      "/home/sodavoroza/.cache/pypoetry/virtualenvs/hotel-booking-service-W5mZP3Ww-py3.12/lib/python3.12/site-packages"
+  ]
+}
