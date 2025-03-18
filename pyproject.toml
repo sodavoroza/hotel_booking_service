@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "hotel_booking_service", from = "src"}]
+packages = [{ include = "hotel_booking_service", from = "src" }]
 
 [tool.poetry.scripts]
 manage = "src.manage:main"

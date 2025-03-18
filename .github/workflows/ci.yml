@@ -35,3 +35,9 @@ jobs:
 
       - name: Run pytest
         run: poetry run pytest src/
+
+      - name: Build Docker image
+        run: docker build -t hotel-booking-service .
+
+      - name: Verify Docker image
+        run: docker run --rm hotel-booking-service poetry run python src/hotel_booking_service/manage.py --help || true

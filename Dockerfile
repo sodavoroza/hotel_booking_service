@@ -1,9 +1,9 @@
 FROM python:3.12-slim
 
-WORKDIR /app/src
+WORKDIR /app
 
 # Копируем файлы зависимостей
-COPY pyproject.toml poetry.lock /app/
+COPY pyproject.toml poetry.lock ./
 
 # Устанавливаем Poetry
 RUN pip install poetry
@@ -12,7 +12,7 @@ RUN pip install poetry
 RUN poetry install --no-root
 
 # Копируем остальной исходный код
-COPY . /app/
+COPY . .
 
 # Запускаем сервер
-CMD ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["poetry", "run", "python", "src/hotel_booking_service/manage.py", "runserver", "0.0.0.0:8000"]
