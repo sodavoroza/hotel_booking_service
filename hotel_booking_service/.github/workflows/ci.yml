@@ -20,17 +20,16 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Run ruff
+      - name: Lint with Ruff
         run: poetry run ruff check .
 
-      - name: Run black check
+      - name: Check code formatting with Black
         run: poetry run black --check .
 
       - name: Run tests with coverage
-        run: poetry run pytest --cov=src --cov-report=xml
+        run: poetry run pytest --cov=src --cov-report=xml --cov-report=term src/
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: coverage.xml
