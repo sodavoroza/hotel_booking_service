@@ -1,2 +1,59 @@
-__pycache__
-.pyc
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pyt
+
+# Virtualenv / Poetry
+.env
+.venv/
+.venv*/
+*.egg-info/
+dist/
+build/
+.poetry/
+
+# Django / sqlite
+db.sqlite3
+*.sqlite3
+
+# Pytest & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# mypy / Ruff / Black / Flake8 caches
+.mypy_cache/
+.ruff_cache/
+.cache/
+*.log
+
+# VSCode & IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Docker
+*.pid
+*.log
+docker-compose.override.yml
+
+# GitHub Actions temp files
+.github/workflows/*.log
+
+# Pre-commit hooks
+.pre-commit-config.yaml
+.pre-commit-hooks.yaml
+
+# Node/npm (если вдруг появятся фронтовые вещи)
+node_modules/
+npm-debug.log
+
+# Misc
+.DS_Store
+*.bak
+*~
