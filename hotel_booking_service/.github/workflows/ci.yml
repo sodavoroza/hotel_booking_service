@@ -1,11 +1,18 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
 
 jobs:
   lint-test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -20,16 +27,11 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Lint with Ruff
+      - name: Run ruff
         run: poetry run ruff check .
 
-      - name: Check code formatting with Black
+      - name: Run black check
         run: poetry run black --check .
 
-      - name: Run tests with coverage
-        run: poetry run pytest --cov=src --cov-report=xml --cov-report=term src/
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Run pytest
+        run: poetry run pytest src/
