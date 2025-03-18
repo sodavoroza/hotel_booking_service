@@ -1,9 +1,8 @@
+from bookings.views import BookingViewSet
 from django.contrib import admin
 from django.urls import include, path
-from rest_framework.routers import DefaultRouter
-
-from bookings.views import BookingViewSet
 from hotels.views import HotelViewSet, RoomViewSet
+from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r"hotels", HotelViewSet)

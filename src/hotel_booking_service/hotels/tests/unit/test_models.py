@@ -1,5 +1,4 @@
 import pytest
-
 from hotels.models import Hotel, Room
 from tests.utils.factories import hotel_payload, room_payload_model
 

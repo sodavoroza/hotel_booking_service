@@ -1,5 +1,4 @@
 import pytest
-
 from hotels.models import Hotel
 from hotels.services.hotel_service import create_hotel, delete_hotel
 
