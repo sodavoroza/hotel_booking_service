@@ -6,33 +6,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('hotels', '0001_initial'),
+        ("hotels", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='hotel',
-            name='address',
-            field=models.CharField(default='Unknown', max_length=255),
+            model_name="hotel",
+            name="address",
+            field=models.CharField(default="Unknown", max_length=255),
         ),
         migrations.AddField(
-            model_name='hotel',
-            name='city',
-            field=models.CharField(default='Unknown', max_length=255),
+            model_name="hotel",
+            name="city",
+            field=models.CharField(default="Unknown", max_length=255),
         ),
         migrations.AddField(
-            model_name='room',
-            name='address',
-            field=models.CharField(default='Unknown', max_length=255),
+            model_name="room",
+            name="address",
+            field=models.CharField(default="Unknown", max_length=255),
         ),
         migrations.AlterField(
-            model_name='hotel',
-            name='location',
-            field=models.CharField(default='Unknown', max_length=255),
+            model_name="hotel",
+            name="location",
+            field=models.CharField(default="Unknown", max_length=255),
         ),
         migrations.AlterField(
-            model_name='hotel',
-            name='name',
+            model_name="hotel",
+            name="name",
             field=models.CharField(max_length=255, null=True),
         ),
     ]

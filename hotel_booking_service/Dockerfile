@@ -1,19 +1,18 @@
 FROM python:3.12-slim
 
-# Установим рабочую директорию
-WORKDIR /app
+WORKDIR /app/src
 
-# Копируем pyproject.toml и poetry.lock
+# Копируем файлы зависимостей
 COPY pyproject.toml poetry.lock /app/
 
-# Установим Poetry
+# Устанавливаем Poetry
 RUN pip install poetry
 
-# Копируем README.md в контейнер
-COPY README.md /app/
+# Устанавливаем зависимости без установки текущего проекта (если не нужен)
+RUN poetry install --no-root
 
-# Устанавливаем зависимости проекта
-RUN poetry install
+# Копируем остальной исходный код
+COPY . /app/
 
-# Запускаем контейнер
-CMD ["python", "manage.py", "runserver"]
+# Запускаем сервер
+CMD ["poetry", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
