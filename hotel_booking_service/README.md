@@ -1,4 +1,4 @@
-![CI](https://github.com/sodavoroza/hotel_booking_service/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/sodavoroza/hotel_booking_service/hotel_booking_service/.github/workflows/ci.yml/badge.svg)
 # Hotel Booking Service
 ## API Endpoints
 
