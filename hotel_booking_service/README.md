@@ -1,5 +1,5 @@
-![CI](https://github.com/sodavoroza/hotel_booking_service/hotel_booking_service/.github/workflows/ci.yml/badge.svg)
-# Hotel Booking Service
+![CI](https://github.com/sodavoroza/hotel_booking_service/actions/workflows/ci.yml/badge.svg)
+
 ## API Endpoints
 
 ### Отели
@@ -30,3 +30,4 @@
 
 ### С Docker Compose
 1. Запустите: `docker-compose up --build`
+# trigger workflow
