@@ -1,5 +1,5 @@
 ![CI](https://github.com/sodavoroza/hotel_booking_service/actions/workflows/ci.yml/badge.svg)
-
+# Hotel Booking Service
 ## API Endpoints
 
 ### Отели
