@@ -1,17 +1,18 @@
 import random
 import string
 from datetime import date, timedelta
+from typing import Any, Dict, Union
 
 
-def random_string(length=5):
+def random_string(length: int = 5) -> str:
     return "".join(random.choices(string.ascii_letters, k=length))
 
 
-def get_id(obj_or_dict):
+def get_id(obj_or_dict: Union[Dict[str, Any], Any]) -> Any:
     return obj_or_dict.id if hasattr(obj_or_dict, "id") else obj_or_dict["id"]
 
 
-def hotel_payload(strict=False, **overrides):
+def hotel_payload(strict: bool = False, **overrides: Any) -> Dict[str, Any]:
     if strict:
         payload = {
             "name": "Test Hotel",
@@ -29,7 +30,7 @@ def hotel_payload(strict=False, **overrides):
     return {**payload, **overrides}
 
 
-def room_payload_api(hotel, strict=False, **overrides):
+def room_payload_api(hotel: Any, strict: bool = False, **overrides: Any) -> Dict[str, Any]:
     hotel_id = get_id(hotel)
     if strict:
         payload = {
@@ -52,13 +53,13 @@ def room_payload_api(hotel, strict=False, **overrides):
     return {**payload, **overrides}
 
 
-def room_payload_model(hotel, **overrides):
+def room_payload_model(hotel: Any, **overrides: Any) -> Dict[str, Any]:
     payload = room_payload_api(hotel, **overrides)
     payload["hotel"] = hotel
     return payload
 
 
-def booking_payload_api(room, strict=False, **overrides):
+def booking_payload_api(room: Any, strict: bool = False, **overrides: Any) -> Dict[str, Any]:
     room_id = get_id(room)
     today = date.today()
     if strict:

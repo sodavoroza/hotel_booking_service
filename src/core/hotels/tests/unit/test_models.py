@@ -6,7 +6,7 @@ from core.tests.utils.factories import hotel_payload, room_payload_model
 
 @pytest.mark.django_db
 def test_hotel_model() -> None:
-    hotel = Hotel.objects.create(**hotel_payload(strict=True))
+    hotel: Hotel = Hotel.objects.create(**hotel_payload(strict=True))
     assert hotel.name == "Test Hotel"
     assert hotel.address == "Test Address"
     assert hotel.city == "Test City"
@@ -16,8 +16,8 @@ def test_hotel_model() -> None:
 
 @pytest.mark.django_db
 def test_room_model() -> None:
-    hotel = Hotel.objects.create(**hotel_payload(strict=True))
-    room = Room.objects.create(**room_payload_model(hotel, strict=True))
+    hotel: Hotel = Hotel.objects.create(**hotel_payload(strict=True))
+    room: Room = Room.objects.create(**room_payload_model(hotel, strict=True))
     assert room.hotel == hotel
     assert room.number == "101"
     assert room.capacity == 2

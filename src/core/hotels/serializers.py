@@ -3,13 +3,13 @@ from rest_framework import serializers
 from core.hotels.models import Hotel, Room
 
 
-class RoomSerializer(serializers.ModelSerializer["Room"]):
+class RoomSerializer(serializers.ModelSerializer[Room]):
     class Meta:
         model = Room
         fields = "__all__"
 
 
-class HotelSerializer(serializers.ModelSerializer["Hotel"]):
+class HotelSerializer(serializers.ModelSerializer[Hotel]):
     rooms = RoomSerializer(many=True, read_only=True)
 
     class Meta:
