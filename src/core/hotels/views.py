@@ -9,9 +9,9 @@ from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Hotel, Room
-from .serializers import HotelSerializer, RoomSerializer
-from .services.hotel_service import create_hotel, delete_hotel
+from core.hotels.models import Hotel, Room
+from core.hotels.serializers import HotelSerializer, RoomSerializer
+from core.hotels.services.hotel_service import create_hotel, delete_hotel
 
 
 class HotelViewSet(viewsets.ModelViewSet[Hotel]):

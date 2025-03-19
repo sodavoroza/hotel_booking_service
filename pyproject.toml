@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{ include = "hotel_booking_service", from = "src" }]
+packages = [{ include = "core", from = "src" }]
 
 [tool.poetry.scripts]
 manage = "src.manage:main"
@@ -31,7 +31,7 @@ ruff = "^0.11.0"
 isort = "^6.0.1"
 pytest-cov = "^6.0.0"
 black = "^25.1.0"
-
+drf-yasg = "^1.21.7"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

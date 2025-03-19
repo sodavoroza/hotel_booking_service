@@ -1,6 +1,6 @@
-from hotels.models import Room
-from hotels.tests.base import APIBaseTest
-from tests.utils.factories import room_payload_api, room_payload_model
+from core.hotels.models import Room
+from core.hotels.tests.base import APIBaseTest
+from core.tests.utils.factories import room_payload_api, room_payload_model
 
 
 class TestRoomAPI(APIBaseTest):

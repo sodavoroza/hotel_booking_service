@@ -1,6 +1,6 @@
 import pytest
-from hotels.models import Hotel
-from hotels.services.hotel_service import create_hotel, delete_hotel
+from core.hotels.models import Hotel
+from core.hotels.services.hotel_service import create_hotel, delete_hotel
 
 
 @pytest.mark.django_db

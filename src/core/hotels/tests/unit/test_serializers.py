@@ -1,7 +1,7 @@
 import pytest
-from hotels.models import Hotel
-from hotels.serializers import HotelSerializer, RoomSerializer
-from tests.utils.factories import hotel_payload, room_payload_api
+from core.hotels.models import Hotel
+from core.hotels.serializers import HotelSerializer, RoomSerializer
+from core.tests.utils.factories import hotel_payload, room_payload_api
 
 
 @pytest.mark.django_db

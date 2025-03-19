@@ -1,5 +1,5 @@
 from django.db import models
-from hotels.models import Room
+from core.hotels.models import Room
 
 
 class Booking(models.Model):

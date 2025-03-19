@@ -1,5 +1,5 @@
-from hotels.tests.base import APIBaseTest
-from tests.utils.factories import hotel_payload
+from core.hotels.tests.base import APIBaseTest
+from core.tests.utils.factories import hotel_payload
 
 
 class TestHotelAPI(APIBaseTest):

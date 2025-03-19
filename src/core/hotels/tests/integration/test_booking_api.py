@@ -1,6 +1,6 @@
-from bookings.models import Booking
-from hotels.tests.base import APIBaseTest
-from tests.utils.factories import booking_payload_api
+from core.bookings.models import Booking
+from core.hotels.tests.base import APIBaseTest
+from core.tests.utils.factories import booking_payload_api
 
 
 class TestBookingAPI(APIBaseTest):

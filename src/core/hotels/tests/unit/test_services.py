@@ -1,12 +1,12 @@
 import pytest
-from hotels.models import Hotel
-from hotels.services.hotel_service import (
+from core.hotels.models import Hotel
+from core.hotels.services.hotel_service import (
     create_hotel,
     delete_hotel,
     get_hotel,
     update_hotel,
 )
-from tests.utils.factories import hotel_payload
+from core.tests.utils.factories import hotel_payload
 
 
 @pytest.mark.django_db

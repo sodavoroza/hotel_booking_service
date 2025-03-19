@@ -1,7 +1,7 @@
 from typing import Any, Dict, Union
 
-from hotels.models import Hotel
-from hotels.serializers import HotelSerializer
+from core.hotels.models import Hotel
+from core.hotels.serializers import HotelSerializer
 
 
 def create_hotel(data: Dict[str, Any]) -> Hotel:

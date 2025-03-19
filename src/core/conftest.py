@@ -1,6 +1,6 @@
 import pytest
-from bookings.models import Booking
-from hotels.models import Hotel, Room
+from core.bookings.models import Booking
+from core.hotels.models import Hotel, Room
 
 
 @pytest.fixture
