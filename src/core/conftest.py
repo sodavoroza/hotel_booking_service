@@ -1,4 +1,5 @@
 import pytest
+
 from core.bookings.models import Booking
 from core.hotels.models import Hotel, Room
 
