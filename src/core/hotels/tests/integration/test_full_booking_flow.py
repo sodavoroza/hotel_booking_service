@@ -1,6 +1,11 @@
 import pytest
 from rest_framework.test import APIClient
-from core.tests.utils.factories import booking_payload_api, hotel_payload, room_payload_api
+
+from core.tests.utils.factories import (
+    booking_payload_api,
+    hotel_payload,
+    room_payload_api,
+)
 
 
 @pytest.mark.django_db

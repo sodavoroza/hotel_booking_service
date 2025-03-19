@@ -16,25 +16,20 @@ ALLOWED_HOSTS: List[str] = os.environ.get(
 
 INSTALLED_APPS = [
     # стандартные django приложения
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
     # твои приложения
-    'core.hotels',
-    'core.bookings',
-
+    "core.hotels",
+    "core.bookings",
     # DRF!
-    'rest_framework',
-
+    "rest_framework",
     # drf-yasg!
-    'drf_yasg',
+    "drf_yasg",
 ]
-
-
 
 
 MIDDLEWARE = [
@@ -52,7 +47,7 @@ ROOT_URLCONF = "core.config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "src" / "templates"], 
+        "DIRS": [BASE_DIR / "src" / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -64,7 +59,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 
 WSGI_APPLICATION = "core.config.wsgi.application"

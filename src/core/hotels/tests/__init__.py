@@ -1,4 +1,5 @@
 import pytest
+
 from core.hotels.models import Hotel
 from core.hotels.services.hotel_service import create_hotel, delete_hotel
 

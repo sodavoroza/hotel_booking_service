@@ -1,4 +1,5 @@
 import pytest
+
 from core.hotels.models import Hotel
 from core.hotels.serializers import HotelSerializer, RoomSerializer
 from core.tests.utils.factories import hotel_payload, room_payload_api
