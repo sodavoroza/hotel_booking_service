@@ -1,6 +1,7 @@
 Hotel Booking Service 🏨
 
-[https://github.com/sodavoroza/hotel_booking_service/actions/workflows/ci.yml]
+[![CI](https://github.com/sodavoroza/hotel_booking_service/actions/workflows/ci.yml/badge.svg)](https://github.com/sodavoroza/hotel_booking_service/actions/workflows/ci.yml)
+
 
 Проект представляет собой REST API для бронирования номеров в отелях, реализованный с помощью Django и Django REST Framework. Он позволяет создавать, редактировать и удалять отели, номера и бронирования, а также отслеживать доступность номеров на указанные даты.
 
