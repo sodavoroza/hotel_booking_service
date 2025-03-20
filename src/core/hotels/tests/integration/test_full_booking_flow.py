@@ -27,10 +27,10 @@ def test_full_booking_flow() -> None:
     assert booking_resp.status_code == status.HTTP_201_CREATED
     booking_id = booking_resp.json()["booking_id"]
 
-    booking_list_resp = client.get(f"/api/bookings/list/?room_id={room['id']}")
+    booking_list_resp = client.get(f"/api/bookings/list-by-room/?room_id={room['id']}")
     assert booking_list_resp.status_code == status.HTTP_200_OK
     bookings = booking_list_resp.json()
-    assert any(b["booking_id"] == booking_id for b in bookings)
+    assert any(b["id"] == booking_id for b in bookings)
 
 
 @pytest.mark.django_db
