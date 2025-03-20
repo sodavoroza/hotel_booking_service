@@ -1,14 +1,33 @@
+from typing import Any
+
 from rest_framework import serializers
 
 from core.bookings.models import Booking
 
 
-class BookingSerializer(serializers.ModelSerializer):
+class BookingSerializer(serializers.ModelSerializer[Booking]):
+    """
+    Сериализатор модели Booking, включающий валидацию дат и проверку на пересечения бронирований.
+    """
+
     class Meta:
         model = Booking
         fields = "__all__"
 
-    def validate(self, data):
+    def validate(self, data: dict[str, Any]) -> dict[str, Any]:
+        """
+        Проверяет, что даты бронирования корректны и комната свободна на указанный период.
+
+        Args:
+            data (dict): Данные для бронирования.
+
+        Raises:
+            serializers.ValidationError: Если дата начала позже или равна дате окончания,
+                                         или если комната уже забронирована на выбранные даты.
+
+        Returns:
+            dict: Валидированные данные.
+        """
         check_in = data.get("check_in")
         check_out = data.get("check_out")
         room = data.get("room")

@@ -1,4 +1,4 @@
-from typing import Any, Dict, Union
+from typing import Any, Dict
 
 from core.hotels.models import Hotel
 from core.hotels.serializers import HotelSerializer
@@ -6,54 +6,54 @@ from core.hotels.serializers import HotelSerializer
 
 def create_hotel(data: Dict[str, Any]) -> Hotel:
     """
-    Создает отель и возвращает объект модели.
-    :param data: Словарь с данными отеля.
-    :return: Объект модели Hotel.
+    Создает и сохраняет новый объект отеля.
+
+    :param data: Данные отеля
+    :return: Сохранённый объект отеля
+    :raises ValueError: если данные некорректны
     """
     serializer = HotelSerializer(data=data)
     if serializer.is_valid():
-        hotel: Hotel = serializer.save()  # Сохраняем объект модели
-        return hotel  # Возвращаем только объект модели
-    raise ValueError("Invalid data for creating hotel: " + str(serializer.errors))
+        return serializer.save()
+    raise ValueError(f"Invalid hotel data provided: {serializer.errors}")
 
 
 def delete_hotel(hotel_id: int) -> bool:
     """
-    Функция для удаления отеля по ID.
-    :param hotel_id: ID отеля, который нужно удалить.
-    :return: True, если удаление прошло успешно, иначе False.
+    Удаляет отель по его ID.
+
+    :param hotel_id: Идентификатор отеля.
+    :return: True, если отель был удален, False если не найден.
     """
-    try:
-        hotel: Hotel = Hotel.objects.get(id=hotel_id)
+    hotel = Hotel.objects.filter(id=hotel_id).first()
+    if hotel:
         hotel.delete()
         return True
-    except Hotel.DoesNotExist:
-        return False
+    return False
 
 
-def get_hotel(hotel_id: int) -> Union[Hotel, None]:
+def get_hotel(hotel_id: int) -> Hotel | None:
     """
-    Получает отель по ID.
-    :param hotel_id: ID отеля.
-    :return: Объект модели Hotel или None.
+    Возвращает отель по его ID.
+
+    :param hotel_id: Идентификатор отеля.
+    :return: Отель или None, если отель не найден.
     """
-    try:
-        return Hotel.objects.get(id=hotel_id)
-    except Hotel.DoesNotExist:
-        return None
+    return Hotel.objects.filter(id=hotel_id).first()
 
 
 def update_hotel(hotel_id: int, data: Dict[str, Any]) -> Hotel:
     """
-    Обновляет данные отеля.
-    :param hotel_id: ID отеля, который нужно обновить.
+    Обновляет данные существующего отеля.
+
+    :param hotel_id: Идентификатор отеля.
     :param data: Данные для обновления.
-    :return: Обновленный объект модели Hotel.
+    :return: Обновлённый объект Hotel.
     """
-    hotel = get_hotel(hotel_id)
+    hotel = Hotel.objects.filter(id=hotel_id).first()
     if hotel:
-        serializer = HotelSerializer(hotel, data=data)
+        serializer = HotelSerializer(hotel, data=data, partial=True)
         if serializer.is_valid():
             return serializer.save()
-        raise ValueError("Invalid data for updating hotel: " + str(serializer.errors))
-    raise ValueError(f"Hotel with ID {hotel_id} not found.")
+        raise ValueError(f"Invalid data provided: {serializer.errors}")
+    raise ValueError(f"Hotel with id {hotel_id} does not exist.")

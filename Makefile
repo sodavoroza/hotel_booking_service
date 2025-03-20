@@ -24,3 +24,15 @@ format:
 
 mypy:
 	docker-compose --env-file .env exec web poetry run mypy src
+lint:
+	poetry run ruff check .
+	poetry run black --check .
+	poetry run mypy src
+
+test:
+	poetry run pytest src --disable-warnings
+
+pre-commit:
+	poetry run pre-commit run --all-files
+
+ci-check: lint test pre-commit

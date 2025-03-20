@@ -1,11 +1,12 @@
 import json
 from typing import Any
 
-from django.http import JsonResponse
+from django.http import HttpRequest, JsonResponse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status, viewsets
+from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -15,15 +16,35 @@ from core.hotels.services.hotel_service import create_hotel, delete_hotel
 
 
 class HotelViewSet(viewsets.ModelViewSet[Hotel]):
+    """
+    ViewSet для управления отелями с использованием стандартных CRUD-операций DRF.
+    """
+
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
 
 
 class RoomViewSet(viewsets.ModelViewSet[Room]):
+    """
+    ViewSet для управления комнатами отелей с поддержкой сортировки.
+    """
+
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
 
-    def get_queryset(self):
+    def get_queryset(self) -> Any:
+        """
+        Возвращает список комнат с возможностью сортировки по указанным параметрам.
+
+        Доступные параметры сортировки:
+            - price_per_night (цена за ночь)
+            - id (идентификатор комнаты)
+
+        Параметр сортировки задается в query_params['ordering'].
+
+        Returns:
+            QuerySet: отсортированный набор комнат.
+        """
         queryset = super().get_queryset()
         ordering = self.request.query_params.get("ordering")
         if ordering in ["price_per_night", "-price_per_night", "id", "-id"]:
@@ -32,7 +53,21 @@ class RoomViewSet(viewsets.ModelViewSet[Room]):
 
 
 class RoomDeleteView(APIView):
-    def delete(self, request, pk, format=None) -> Response:
+    """
+    API endpoint для удаления комнаты по её идентификатору.
+    """
+
+    def delete(self, request: Request, pk: int, format: Any = None) -> Response:
+        """
+        Удаляет указанную комнату.
+
+        Args:
+            request (Request): HTTP-запрос.
+            pk (int): ID комнаты.
+
+        Returns:
+            Response: HTTP-ответ с результатом операции.
+        """
         try:
             room = Room.objects.get(id=pk)
             room.delete()
@@ -45,7 +80,20 @@ class RoomDeleteView(APIView):
 
 @method_decorator(csrf_exempt, name="dispatch")
 class HotelCreateView(View):
-    def post(self, request: Any, *args: Any, **kwargs: Any) -> JsonResponse:
+    """
+    API endpoint для создания отеля через стандартный Django View.
+    """
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> JsonResponse:
+        """
+        Создает новый отель.
+
+        Args:
+            request (HttpRequest): HTTP-запрос с данными отеля.
+
+        Returns:
+            JsonResponse: Ответ с информацией о созданном отеле или об ошибке.
+        """
         data = json.loads(request.body)
         try:
             hotel: Hotel = create_hotel(data)
@@ -56,7 +104,21 @@ class HotelCreateView(View):
 
 
 class HotelDetailView(APIView):
-    def get(self, request: Any, pk: int, format: Any = None) -> Response:
+    """
+    API endpoint для получения детальной информации об отеле по ID.
+    """
+
+    def get(self, request: Request, pk: int, format: Any = None) -> Response:
+        """
+        Возвращает информацию об отеле.
+
+        Args:
+            request (Request): HTTP-запрос.
+            pk (int): ID отеля.
+
+        Returns:
+            Response: Ответ с данными об отеле или ошибка, если отель не найден.
+        """
         try:
             hotel: Hotel = Hotel.objects.get(id=pk)
             serializer = HotelSerializer(hotel)
@@ -68,7 +130,21 @@ class HotelDetailView(APIView):
 
 
 class HotelUpdateView(APIView):
-    def put(self, request: Any, pk: int, format: Any = None) -> Response:
+    """
+    API endpoint для полного обновления информации об отеле.
+    """
+
+    def put(self, request: Request, pk: int, format: Any = None) -> Response:
+        """
+        Обновляет отель целиком.
+
+        Args:
+            request (Request): HTTP-запрос.
+            pk (int): ID отеля.
+
+        Returns:
+            Response: Ответ с обновленными данными отеля или описание ошибок.
+        """
         try:
             hotel: Hotel = Hotel.objects.get(id=pk)
             serializer = HotelSerializer(hotel, data=request.data)
@@ -83,7 +159,21 @@ class HotelUpdateView(APIView):
 
 
 class HotelPartialUpdateView(APIView):
-    def patch(self, request: Any, pk: int, format: Any = None) -> Response:
+    """
+    API endpoint для частичного обновления информации об отеле.
+    """
+
+    def patch(self, request: Request, pk: int, format: Any = None) -> Response:
+        """
+        Частично обновляет данные отеля.
+
+        Args:
+            request (Request): HTTP-запрос.
+            pk (int): ID отеля.
+
+        Returns:
+            Response: Ответ с частично обновленными данными отеля или описание ошибок.
+        """
         try:
             hotel: Hotel = Hotel.objects.get(id=pk)
             serializer = HotelSerializer(hotel, data=request.data, partial=True)
@@ -98,7 +188,21 @@ class HotelPartialUpdateView(APIView):
 
 
 class HotelDeleteView(APIView):
-    def delete(self, request: Any, pk: int, format: Any = None) -> Response:
+    """
+    API endpoint для удаления отеля по его идентификатору.
+    """
+
+    def delete(self, request: Request, pk: int, format: Any = None) -> Response:
+        """
+        Удаляет отель по идентификатору.
+
+        Args:
+            request (Request): HTTP-запрос.
+            pk (int): ID отеля.
+
+        Returns:
+            Response: HTTP-ответ с результатом операции удаления.
+        """
         if delete_hotel(pk):
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(

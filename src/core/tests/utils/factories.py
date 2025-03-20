@@ -30,7 +30,9 @@ def hotel_payload(strict: bool = False, **overrides: Any) -> Dict[str, Any]:
     return {**payload, **overrides}
 
 
-def room_payload_api(hotel: Any, strict: bool = False, **overrides: Any) -> Dict[str, Any]:
+def room_payload_api(
+    hotel: Any, strict: bool = False, **overrides: Any
+) -> Dict[str, Any]:
     hotel_id = get_id(hotel)
     if strict:
         payload = {
@@ -59,7 +61,9 @@ def room_payload_model(hotel: Any, **overrides: Any) -> Dict[str, Any]:
     return payload
 
 
-def booking_payload_api(room: Any, strict: bool = False, **overrides: Any) -> Dict[str, Any]:
+def booking_payload_api(
+    room: Any, strict: bool = False, **overrides: Any
+) -> Dict[str, Any]:
     room_id = get_id(room)
     today = date.today()
     if strict:

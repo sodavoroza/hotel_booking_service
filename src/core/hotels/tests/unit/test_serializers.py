@@ -1,14 +1,13 @@
 import pytest
-from rest_framework.serializers import Serializer
-
-from core.hotels.models import Hotel
+from core.hotels.models import Hotel, Room
 from core.hotels.serializers import HotelSerializer, RoomSerializer
 from core.tests.utils.factories import hotel_payload, room_payload_api
+from rest_framework.serializers import Serializer
 
 
 @pytest.mark.django_db
 def test_hotel_serializer_create() -> None:
-    serializer: Serializer = HotelSerializer(data=hotel_payload(strict=True))
+    serializer: Serializer[Hotel] = HotelSerializer(data=hotel_payload(strict=True))
     assert serializer.is_valid()
     hotel: Hotel = serializer.save()
     assert hotel.name == "Test Hotel"
@@ -19,7 +18,7 @@ def test_hotel_serializer_create() -> None:
 @pytest.mark.django_db
 def test_hotel_serializer_invalid() -> None:
     invalid_data = hotel_payload(strict=True, name="")
-    serializer: Serializer = HotelSerializer(data=invalid_data)
+    serializer: Serializer[Hotel] = HotelSerializer(data=invalid_data)
     assert not serializer.is_valid()
     assert "name" in serializer.errors
 
@@ -28,7 +27,7 @@ def test_hotel_serializer_invalid() -> None:
 def test_hotel_serializer_update() -> None:
     hotel: Hotel = Hotel.objects.create(**hotel_payload(strict=True))
     updated_data = hotel_payload(strict=True, name="Updated Hotel")
-    serializer: Serializer = HotelSerializer(hotel, data=updated_data)
+    serializer: Serializer[Hotel] = HotelSerializer(hotel, data=updated_data)
     assert serializer.is_valid()
     updated_hotel: Hotel = serializer.save()
     assert updated_hotel.name == "Updated Hotel"
@@ -37,9 +36,11 @@ def test_hotel_serializer_update() -> None:
 @pytest.mark.django_db
 def test_room_serializer_create() -> None:
     hotel: Hotel = Hotel.objects.create(**hotel_payload(strict=True))
-    serializer: Serializer = RoomSerializer(data=room_payload_api(hotel, strict=True))
+    serializer: Serializer[Room] = RoomSerializer(
+        data=room_payload_api(hotel, strict=True)
+    )
     assert serializer.is_valid()
-    room = serializer.save()
+    room: Room = serializer.save()
     assert room.hotel == hotel
     assert room.number == "101"
 
@@ -48,6 +49,6 @@ def test_room_serializer_create() -> None:
 def test_room_serializer_invalid() -> None:
     hotel: Hotel = Hotel.objects.create(**hotel_payload(strict=True))
     data = room_payload_api(hotel, strict=True, number="")
-    serializer: Serializer = RoomSerializer(data=data)
+    serializer: Serializer[Room] = RoomSerializer(data=data)
     assert not serializer.is_valid()
     assert "number" in serializer.errors

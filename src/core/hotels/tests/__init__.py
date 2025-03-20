@@ -22,6 +22,7 @@ def test_delete_hotel() -> None:
     hotel = Hotel.objects.create(
         name="Test Hotel", address="Test Address", city="Test City"
     )
+    assert hotel.id is not None
     result = delete_hotel(hotel.id)
     assert result is True
     assert Hotel.objects.filter(id=hotel.id).count() == 0

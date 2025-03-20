@@ -2,21 +2,42 @@ from django.db import models
 
 
 class Hotel(models.Model):
-    name = models.CharField(max_length=255, null=False, blank=False)  # type: ignore
-    address = models.CharField(max_length=255, default="Unknown")  # type: ignore
-    city = models.CharField(max_length=255, default="Unknown")  # type: ignore
-    location = models.CharField(max_length=255, default="Unknown")  # type: ignore
+    """
+    Модель, представляющая отель.
+
+    Атрибуты:
+        name (str): Название отеля.
+        address (str): Адрес отеля.
+        city (str): Город, в котором расположен отель.
+        location (str): Конкретное местоположение отеля (район и т.п.).
+    """
+
+    name = models.CharField(max_length=255, null=False, blank=False)
+    address = models.CharField(max_length=255, default="Unknown")
+    city = models.CharField(max_length=255, default="Unknown")
+    location = models.CharField(max_length=255, default="Unknown")
 
     def __str__(self) -> str:
-        return str(self.name)
+        return self.name
 
 
 class Room(models.Model):
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name="rooms")  # type: ignore
-    number = models.CharField(max_length=10)  # type: ignore
-    capacity = models.PositiveIntegerField()  # type: ignore
-    price_per_night = models.DecimalField(max_digits=10, decimal_places=2)  # type: ignore
-    address = models.CharField(max_length=255, default="Unknown")  # type: ignore
+    """
+    Комната (номер) в отеле.
+
+    Attributes:
+        hotel: Отель, к которому относится комната.
+        number: Номер комнаты.
+        capacity: Вместимость комнаты (количество гостей).
+        price_per_night: Цена за одну ночь проживания.
+        address: Дополнительная информация о комнате (например, этаж).
+    """
+
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name="rooms")
+    number = models.CharField(max_length=10)
+    capacity = models.PositiveIntegerField()
+    price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
+    address = models.CharField(max_length=255, default="Unknown")
 
     def __str__(self) -> str:
         return f"Room {self.number} of {self.hotel.name}"
