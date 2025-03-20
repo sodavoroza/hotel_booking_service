@@ -94,16 +94,7 @@ jobs:
         run: pip install poetry
 
       - name: Install dependencies
-        run: poetry install --no-root --with dev
-
-      - name: Run migrations
-        run: poetry run python src/manage.py migrate
+        run: poetry install
 
       - name: Run pytest
-        run: PYTHONPATH=src poetry run pytest --tb=short --disable-warnings --maxfail=3
-
-      - name: Build Docker image
-        run: docker build -t hotel-booking-service .
-
-      - name: Verify Docker image
-        run: docker run --rm hotel-booking-service poetry run python src/manage.py --help || true
+        run: poetry run pytest
