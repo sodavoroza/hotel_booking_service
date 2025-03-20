@@ -1,128 +1,110 @@
-Hotel Booking Service 🏨
+![CI](https://github.com/sodavoroza/hotel_booking_service/actions/workflows/ci.yml/badge.svg)
 
-[![CI](https://github.com/sodavoroza/hotel_booking_service/actions/workflows/ci.yml/badge.svg)](https://github.com/sodavoroza/hotel_booking_service/actions/workflows/ci.yml)
+# Hotel Booking Service 🏨
 
+Проект представляет собой REST API для управления бронированием отелей, реализованный на Django и Django REST Framework. 
 
-Проект представляет собой REST API для бронирования номеров в отелях, реализованный с помощью Django и Django REST Framework. Он позволяет создавать, редактировать и удалять отели, номера и бронирования, а также отслеживать доступность номеров на указанные даты.
+## Стек технологий
 
-📌 Стек технологий
-Python 3.12
-Django 5.1.7
-Django REST Framework 3.15.2
-PostgreSQL
-Poetry
-Docker и Docker Compose
-Pytest
-Ruff, Black, Mypy, pre-commit
+- Python 3.12
+- Django 5.1.7
+- Django REST Framework 3.15.2
+- PostgreSQL 13
+- Docker / Docker Compose
+- Poetry
+- Pytest для тестирования
+- Ruff, Black и MyPy для форматирования и статического анализа кода
 
+## 🚀 Быстрый старт
 
-⚙️ Установка и запуск проекта
+### Локальный запуск (без Docker)
 
-🔧 Локальный запуск (без Docker)
+Создайте виртуальное окружение и установите зависимости:
 
-1. Клонируйте репозиторий и перейдите в папку проекта
-git clone https://github.com/sodavoroza/hotel_booking_service.git
-cd hotel_booking_service
-
-2. Создайте и активируйте виртуальное окружение
+```bash
 poetry install
+```
 
-3. Создайте файл .env в корне проекта с таким содержимым:
+Примените миграции:
+
+```bash
+poetry run python src/manage.py migrate
+```
+
+Запустите сервер разработки:
+
+```bash
+poetry run python src/manage.py runserver
+```
+
+---
+
+### Запуск с помощью Docker Compose 🐳
+
+Создайте и заполните файл `.env` с необходимыми переменными (см. раздел ниже), затем выполните:
+
+```bash
+docker-compose --env-file .env up --build
+```
+
+Сервис будет доступен по адресу:
+[http://localhost:8000](http://localhost:8000)
+
+## 🔧 Полезные команды Makefile
+
+| Команда            | Описание                                            |
+|--------------------|-----------------------------------------------------|
+| `make up`          | Запуск Docker Compose (сборка и запуск контейнеров) |
+| `make down`        | Остановка всех контейнеров                          |
+| `make migrate`     | Выполнение миграций                                 |
+| `make test`        | Запуск тестов (pytest) через Docker Compose         |
+| `make lint`        | Запустить все линтеры (pre-commit)                  |
+| `make format`      | Форматирование кода (ruff, black, isort)            |
+| `make mypy`        | Проверка статической типизации                      |
+| `make shell`       | Войти в контейнер веб-приложения                    |
+| `make logs`        | Посмотреть логи веб-контейнера                      |
+| `make ci-check`    | Полная локальная проверка (линтинг, mypy, тесты)    |
+
+## 🧪 Тестирование и линтинг
+
+Запуск тестов:
+
+```bash
+make test
+```
+
+Линтинг и форматирование кода:
+
+```bash
+make lint
+make format
+```
+
+## 🚦 GitHub Actions (CI/CD)
+
+При каждом пуше запускаются следующие проверки:
+
+- Линтинг и форматирование (ruff, black)
+- Проверка типов (mypy)
+- Тесты (pytest)
+
+Состояние CI: [![CI](https://github.com/sodavoroza/hotel_booking_service/actions/workflows/ci.yml/badge.svg)](https://github.com/sodavoroza/hotel_booking_service/actions)
+
+## 📚 Документация API (Swagger & Redoc)
+
+Документация доступна только при `DEBUG=True`:
+
+- Swagger: [http://localhost:8000/swagger/](http://localhost:8000/swagger/)
+- Redoc: [http://localhost:8000/redoc/](http://localhost:8000/redoc/)
+
+## 🛠️ Настройки окружения (.env файл)
+
+```env
 POSTGRES_DB=hotel
 POSTGRES_USER=user
 POSTGRES_PASSWORD=password
 POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
+DJANGO_SECRET_KEY=your-secret-key
 IN_DOCKER=False
-DJANGO_SECRET_KEY=ваш-секретный-ключ
-DJANGO_DEBUG=True
-
-4. Выполните миграции и запустите сервер разработки
-poetry run python src/manage.py migrate
-poetry run python src/manage.py runserver
-
-Сервер будет доступен по адресу: http://localhost:8000/.
-
-
-
-🐳 Запуск через Docker Compose:
-
-1. Создайте файл .env (как описано выше).
-
-2. Запустите приложение через Docker Compose
-docker-compose up --build
-
-После запуска приложение доступно на http://localhost:8000/.
-
-
-📚 Документация API (Swagger и Redoc)
-
-Документация доступна по следующим ссылкам:
-
-Swagger UI: http://localhost:8000/swagger/
-Redoc: http://localhost:8000/redoc/
-
-
-🚀 Доступные API эндпоинты
-
-🏢 Отели
-GET /api/hotels/ – список всех отелей
-POST /api/hotels/ – создание отеля
-GET /api/hotels/{id}/ – детали отеля
-PUT /api/hotels/{id}/ – обновление отеля
-PATCH /api/hotels/{id}/ – частичное обновление отеля
-DELETE /api/hotels/{id}/ – удаление отеля (и всех номеров в нем)
-
-🛏️ Номера
-GET /api/rooms/ – список всех номеров
-Поддерживается сортировка: ?ordering=price_per_night или ?ordering=-price_per_night
-POST /api/rooms/ – создание номера
-GET /api/rooms/{id}/ – детали номера
-PUT /api/rooms/{id}/ – обновление номера
-PATCH /api/rooms/{id}/ – частичное обновление номера
-DELETE /api/rooms/{id}/ – удаление номера (и связанных бронирований)
-
-📖 Бронирования
-GET /api/bookings/ – список всех бронирований
-POST /api/bookings/ – создание бронирования (room, guest_name, check_in, check_out)
-GET /api/bookings/{id}/ – детали бронирования
-PUT /api/bookings/{id}/ – обновление бронирования
-DELETE /api/bookings/{id}/ – удаление бронирования
-
-Дополнительно:
-
-GET /api/bookings/list-by-room/?room_id={room_id} – бронирования по конкретному номеру
-DELETE /api/bookings/delete/ – удаление бронирования по booking_id в теле запроса
-
-
-✅ Проверки качества кода и тестирование
-
-🧹 Линтинг и форматирование:
-make lint – проверка кода линтерами (ruff, mypy, black check)
-make format – автоформатирование кода (ruff --fix и black)
-make up
-
-🧪 Запуск тестов
-
-make test
-
-⚙️ Pre-commit хуки
-
-make pre-commit
-
-🚦 Локальная проверка всего CI-конвейера (линтеры, тесты и pre-commit):
-
-make ci-check
-
-
-🔄 Continuous Integration (GitHub Actions)
-
-На каждое действие с ветками main и develop запускается автоматическая проверка:
-
-Линтинг и проверка типизации (ruff, black, mypy, pre-commit)
-Запуск тестов (pytest)
-
-Настройки находятся в .github/workflows/ci.yml.
-
-Статус сборки:
-https://github.com/sodavoroza/hotel_booking_service/actions/workflows/ci.yml
+```
