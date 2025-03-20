@@ -35,17 +35,11 @@ jobs:
       - name: Install dependencies
         run: poetry install
 
-      - name: Run ruff
-        run: poetry run ruff check .
-
-      - name: Run black check
-        run: poetry run black --check .
+      - name: Run pre-commit checks
+        run: poetry run pre-commit run --all-files
 
       - name: Run mypy
         run: poetry run mypy src
-
-      - name: Run pre-commit hooks
-        run: poetry run pre-commit run --all-files
 
   test:
     runs-on: ubuntu-latest
