@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Env files
+.env
+*.env
+
+# Django
+*.sqlite3
+/staticfiles/
+media/
+
+# VSCode / PyCharm
+.vscode/
+.idea/
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# Poetry / Pip
+poetry.lock
+
+# Migrations cache
+src/**/migrations/__pycache__/
+src/**/migrations/*.pyc
+src/**/migrations/*.pyo
+
+# Coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+
+# Test artifacts
+.pytest_cache/
+
+# Other
+*.DS_Store
